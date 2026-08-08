@@ -26,8 +26,10 @@ func _on_next_transitions() -> void:
 	
 	if GameInputEvents.is_movement_input():
 		transition.emit("Run")
-	if GameInputEvents.is_attack_input():
-		transition.emit("Attack")
+	#if GameInputEvents.is_attack_input():
+		#transition.emit("Attack")
+	if GameInputEvents.is_jump_input():
+		transition.emit("Jump")
 
 
 func _on_enter() -> void:

@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://bugik3oysmdjl" path="res://run_state.gd" id="6_dtqjt"]
 [ext_resource type="Script" uid="uid://b2pkktpg10igb" path="res://idle_state.gd" id="6_tdg3f"]
 [ext_resource type="Script" uid="uid://i46wgthkxivm" path="res://attack_state.gd" id="8_5ncpa"]
+[ext_resource type="Script" uid="uid://blp2mojc15ak2" path="res://jump_state.gd" id="9_wi0c6"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cgsek"]
 atlas = ExtResource("3_e80uo")
@@ -256,3 +257,8 @@ animated_sprite_2d = NodePath("../../AnimatedSprite2D")
 
 [node name="Attack" type="Node" parent="StateMachine" unique_id=1957659307]
 script = ExtResource("8_5ncpa")
+
+[node name="Jump" type="Node" parent="StateMachine" unique_id=746131183 node_paths=PackedStringArray("player", "animated_sprite_2d")]
+script = ExtResource("9_wi0c6")
+player = NodePath("../..")
+animated_sprite_2d = NodePath("../../AnimatedSprite2D")
