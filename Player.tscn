@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://6l7xsgth1tdo" path="res://Assets/2D-Pixel-Art-Character-Template/Katana Attack-Sheathe/player katana attack-sheathe 80x64.png" id="3_e80uo"]
 [ext_resource type="Texture2D" uid="uid://drpgwrqwh8h4f" path="res://Assets/2D-Pixel-Art-Character-Template/Air Spin/player air spin 48x48.png" id="4_dtqjt"]
 [ext_resource type="Texture2D" uid="uid://cov13mtowf55u" path="res://Assets/2D-Pixel-Art-Character-Template/Jump/player new jump 48x48.png" id="4_hp6x6"]
+[ext_resource type="Texture2D" uid="uid://dprqs1f6kn3gm" path="res://Assets/2D-Pixel-Art-Character-Template/Ledge Grab-Climb/player ledge climb 48x48.png" id="7_5ncpa"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cgsek"]
 atlas = ExtResource("3_e80uo")
@@ -184,6 +185,26 @@ region = Rect2(192, 0, 48, 48)
 atlas = ExtResource("4_hp6x6")
 region = Rect2(240, 0, 48, 48)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_4cdfs"]
+atlas = ExtResource("7_5ncpa")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_njqbf"]
+atlas = ExtResource("7_5ncpa")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ffn1m"]
+atlas = ExtResource("7_5ncpa")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mft6i"]
+atlas = ExtResource("7_5ncpa")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ctv73"]
+atlas = ExtResource("7_5ncpa")
+region = Rect2(192, 0, 48, 48)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_l6ohk"]
 atlas = ExtResource("2_kpjcp")
 region = Rect2(0, 0, 48, 48)
@@ -324,6 +345,17 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_nd6qy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_23wgl")
+}],
+"loop": 1,
+"name": &"Float",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_kpjcp")
 }, {
 "duration": 1.0,
@@ -382,6 +414,26 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_4cdfs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_njqbf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ffn1m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mft6i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ctv73")
+}],
+"loop": 0,
+"name": &"Ledge Climb",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_l6ohk")
 }, {
 "duration": 1.0,
@@ -410,8 +462,9 @@ animations = [{
 "speed": 8.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_xhfnw"]
-size = Vector2(4, 13.5)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5ncpa"]
+radius = 2.0
+height = 11.5
 
 [node name="CharacterBody2D" type="CharacterBody2D" unique_id=372368099]
 script = ExtResource("1_kne1u")
@@ -421,12 +474,14 @@ unique_name_in_owner = true
 position = Vector2(-1.1920929e-07, -9)
 scale = Vector2(0.5520833, 0.5520833)
 sprite_frames = SubResource("SpriteFrames_l6ohk")
-animation = &"Double Jump"
+animation = &"Idle"
 autoplay = "Idle"
+frame_progress = 0.39494678
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=835840665]
+unique_name_in_owner = true
 position = Vector2(0, -7.75)
-shape = SubResource("RectangleShape2D_xhfnw")
+shape = SubResource("CapsuleShape2D_5ncpa")
 
 [node name="StateMachine" type="Node" parent="." unique_id=1962339393]
 
@@ -443,3 +498,21 @@ unique_name_in_owner = true
 process_callback = 0
 wait_time = 0.2
 one_shot = true
+
+[node name="FloatCooldown" type="Timer" parent="." unique_id=1332640420]
+unique_name_in_owner = true
+process_callback = 0
+wait_time = 0.1
+one_shot = true
+
+[node name="LedgeClimbRayCast" type="RayCast2D" parent="." unique_id=1732768604]
+unique_name_in_owner = true
+position = Vector2(1, -16)
+scale = Vector2(0.5, 0.5)
+target_position = Vector2(12, 16)
+
+[node name="LedgeSpaceRayCast" type="RayCast2D" parent="." unique_id=29005581]
+unique_name_in_owner = true
+position = Vector2(-9, 0)
+scale = Vector2(0.3, 0.3)
+target_position = Vector2(0, -60)
