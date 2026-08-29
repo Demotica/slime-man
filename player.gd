@@ -20,6 +20,7 @@ const JUMP_DECELERATION := 1500.0
 const DOUBLE_JUMP_VELOCITY := -250.0
 const FLOAT_GRAVITY := 200.0
 const FLOAT_VELOCITY := 100.0
+const LEDGE_JUMP_VELOCITY := -250.0
 
 var can_double_jump := false
 var facing_direction := 1.0
@@ -80,6 +81,10 @@ func switch_state(to_state: STATE) -> void:
 			velocity = Vector2.ZERO
 			global_position.y = ledge_climb_ray_cast.get_collision_point().y
 			can_double_jump = true
+		
+		STATE.LEDGE_JUMP:
+			animated_sprite.play("Double Jump")
+			velocity.y = LEDGE_JUMP_VELOCITY
 
 func process_state(delta: float) -> void:
 	#match is similar to switch statements in other languages
@@ -112,7 +117,7 @@ func process_state(delta: float) -> void:
 			elif Input.is_action_just_pressed("jump"):
 				switch_state(STATE.JUMP)
 		
-		STATE.JUMP, STATE.DOUBLE_JUMP:
+		STATE.JUMP, STATE.DOUBLE_JUMP, STATE.LEDGE_JUMP:
 			velocity.y = move_toward(velocity.y, 0, JUMP_DECELERATION * delta)
 			handle_movement()
 			
@@ -138,6 +143,13 @@ func process_state(delta: float) -> void:
 				offset.x *= facing_direction
 				position += offset
 				switch_state(STATE.FLOOR)
+			elif Input.is_action_just_pressed("jump"):
+				#determines how many frames have passed with a value inbetween 0 and 1
+				var progress := inverse_lerp(0, animated_sprite.sprite_frames.get_frame_count("Ledge Climb"), animated_sprite.frame)
+				var offset := ledge_climb_offset()
+				offset.x *= facing_direction * progress
+				position += offset
+				switch_state(STATE.LEDGE_JUMP)
 
 
 func handle_movement() -> void:

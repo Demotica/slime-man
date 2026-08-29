@@ -413,24 +413,24 @@ animations = [{
 "speed": 5.0
 }, {
 "frames": [{
-"duration": 1.0,
+"duration": 3.0,
 "texture": SubResource("AtlasTexture_4cdfs")
 }, {
-"duration": 1.0,
+"duration": 3.0,
 "texture": SubResource("AtlasTexture_njqbf")
 }, {
-"duration": 1.0,
+"duration": 3.0,
 "texture": SubResource("AtlasTexture_ffn1m")
 }, {
-"duration": 1.0,
+"duration": 3.0,
 "texture": SubResource("AtlasTexture_mft6i")
 }, {
-"duration": 1.0,
+"duration": 3.0,
 "texture": SubResource("AtlasTexture_ctv73")
 }],
 "loop": 0,
 "name": &"Ledge Climb",
-"speed": 10.0
+"speed": 24.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -463,24 +463,22 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5ncpa"]
-radius = 2.0
-height = 11.5
+radius = 3.0
+height = 13.0
 
 [node name="CharacterBody2D" type="CharacterBody2D" unique_id=372368099]
 script = ExtResource("1_kne1u")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1852020310]
 unique_name_in_owner = true
-position = Vector2(-1.1920929e-07, -9)
-scale = Vector2(0.5520833, 0.5520833)
+position = Vector2(0, -1.5)
+scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_l6ohk")
 animation = &"Idle"
 autoplay = "Idle"
-frame_progress = 0.39494678
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=835840665]
 unique_name_in_owner = true
-position = Vector2(0, -7.75)
 shape = SubResource("CapsuleShape2D_5ncpa")
 
 [node name="StateMachine" type="Node" parent="." unique_id=1962339393]
@@ -507,12 +505,12 @@ one_shot = true
 
 [node name="LedgeClimbRayCast" type="RayCast2D" parent="." unique_id=1732768604]
 unique_name_in_owner = true
-position = Vector2(1, -16)
+position = Vector2(1, -10)
 scale = Vector2(0.5, 0.5)
-target_position = Vector2(12, 16)
+target_position = Vector2(8, 14)
 
 [node name="LedgeSpaceRayCast" type="RayCast2D" parent="." unique_id=29005581]
 unique_name_in_owner = true
-position = Vector2(-9, 0)
+position = Vector2(-9, 7)
 scale = Vector2(0.3, 0.3)
 target_position = Vector2(0, -60)
